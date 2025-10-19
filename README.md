@@ -53,19 +53,26 @@ Open the notebook in Jupyter/VSCode and run. You’ll need to adapt the data-loa
 
 ---
 
-## 🧾 Evaluation Metrics (Backend)
+## 🧾 Evaluation Metrics
 
-| Metric                   | Purpose                             | Source          |
-| ------------------------ | ----------------------------------- | --------------- |
-| **OOD Macro F1**         | Primary score (unseen products)     | Hidden OOD test |
-| **ID Macro F1**          | Sanity check (pipeline correctness) | Visible ID test |
-| **Latency (normalized)** | Efficiency measure                  | Backend         |
+Each submission is evaluated using the same logic as our backend evaluator (`evaluation.py`), which measures:
 
-Final score (example weighting):
+| Metric                   | Description                                 | Data Split       |
+| ------------------------ | ------------------------------------------- | ---------------- |
+| **Macro F1 (OOD)**       | Accuracy on unseen product types and brands | Hidden OOD test  |
+| **Macro F1 (ID)**        | Accuracy on the provided in-domain test     | Visible ID test  |
+| **Latency (normalized)** | Efficiency of inference across environments | Backend hardware |
 
+> The hidden OOD test is not shared. It includes products and attributes not present in the training data.
+
+During submission review, your model and tokenizer are automatically loaded, evaluated, and benchmarked using `evaluation.py`.
+You can reproduce the same logic locally by setting your own paths in a `.env` file and running:
+
+```bash
+python evaluation_submission.py
 ```
-final_score = 100 * (0.7 * OOD_F1 + 0.2 * ID_F1 + 0.1 * latency_score)
-```
+
+This produces `evaluation_results.json` with your local F1 and latency scores for verification.
 
 ---
 
