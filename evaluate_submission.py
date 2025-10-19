@@ -2,7 +2,7 @@
 # ------------------------------------------------------
 # This script illustrates how Foretoken evaluates submissions.
 # The actual backend uses the same logic but runs on a hidden
-# out-of-domain (OOD) test set not shared with candidates.
+# out-of-domain (OOD) test set not shared here.
 # ------------------------------------------------------
 
 import json, time, torch, os
